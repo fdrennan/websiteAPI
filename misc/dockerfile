@@ -28,7 +28,7 @@ RUN R -e "install.packages('fortunes')"
 RUN R -e "install.packages('tidymodels', dependencies = TRUE)"
 
 RUN R -e "print(iris)"
-
+RUN pwd
 RUN R -e 'devtools::install_github("fdrennan/websiteApi", auth_token = "")'
 
 EXPOSE 8000

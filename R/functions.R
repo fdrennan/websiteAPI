@@ -47,10 +47,10 @@ get_samps <- function(samps = 100) {
     filter(n %in% samps) %>%
     collect
 
+  dbDisconnect(con)
 
   toJSON(values, pretty = TRUE)
 
-  dbDisconnect(con)
 }
 
 # docker build -t dockerfile .
