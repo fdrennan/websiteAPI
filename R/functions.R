@@ -49,7 +49,11 @@ get_samps <- function(samps = 100) {
 
 
   toJSON(values, pretty = TRUE)
+
+  dbDisconnect(con)
 }
 
 # docker build -t dockerfile .
 # docker exec -it 80caef3f2980 sh
+# docker run --rm -d -p 8000:8000 -v `pwd`/plumber.R:/plumber.R dockerfile /plumber.R
+
