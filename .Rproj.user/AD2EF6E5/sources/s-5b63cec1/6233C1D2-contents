@@ -47,3 +47,33 @@ f = function(n=100, string = 'I love Meggan!'){
   jsonlite::toJSON(a)
 }
 
+#* @serializer unboxedJSON
+#* @param samps How many rows
+#* @get /flights
+function(samps = 100) {
+  con <- dbConnect(PostgreSQL(),
+                   dbname   = 'linkedin',
+                   host     = 'drenr.com',
+                   port     = 5432,
+                   user     = "linkedin_user",
+                   password = "password")
+
+  dbListTables(con)
+
+  p_flights = tbl(con, in_schema("public", 'p_flights'))
+
+  n_rows = 336776
+
+  samps = sample(1:n_rows, samps)
+
+  values <- p_flights %>%
+    mutate(n = row_number()) %>%
+    filter(n %in% samps) %>%
+    collect
+
+
+  toJSON(values, pretty = TRUE)
+}
+
+f(10)
+
