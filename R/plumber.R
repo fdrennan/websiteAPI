@@ -51,6 +51,7 @@ f = function(n=100, string = 'I love Meggan!'){
 #* @param samps How many rows
 #* @get /flights
 function(samps = 100) {
+  library(websiteApi)
   con <- dbConnect(PostgreSQL(),
                    dbname   = 'linkedin',
                    host     = 'drenr.com',

@@ -24,3 +24,4 @@ update_docker <- function() {
 }
 
 # docker build -t dockerfile .
+# docker exec -it 80caef3f2980 sh
