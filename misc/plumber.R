@@ -47,33 +47,49 @@ f = function(n=100, string = 'I love Meggan!'){
   jsonlite::toJSON(a)
 }
 
+
+
+
 #* @serializer unboxedJSON
 #* @param samps How many rows
 #* @get /flights
 function(samps = 100) {
-  con <- dbConnect(PostgreSQL(),
-                   dbname   = 'linkedin',
-                   host     = 'drenr.com',
-                   port     = 5432,
-                   user     = "linkedin_user",
-                   password = "password")
+  # 18.220.132.82/create_quest?chapter=1&question_number=1&question_text="Hello"&s3_audio_loc="jalsd"
+  library(websiteApi)
 
-  dbListTables(con)
+  # dummy comment for testing auto-deploy, test 2
 
-  p_flights = tbl(con, in_schema("public", 'p_flights'))
+  # Build the response object (list will be serialized as JSON)
+  response <- list(statusCode = 200,
+                   data = "",
+                   message = "sucess",
+                   console = list(
+                     args = list(
+                       samps = samps
+                     ),
+                     runtime = 0
+                   )
+  )
 
-  n_rows = 336776
+  response <- tryCatch(
+    {
+      # Run the algorithm
+      tic()
+      response$data <- get_samps(
+        samps = samps
+      )
+      timer <- toc(quiet = T)
+      response$console$runtime <- as.numeric(timer$toc - timer$tic)
 
-  samps = sample(1:n_rows, samps)
-
-  values <- p_flights %>%
-    mutate(n = row_number()) %>%
-    filter(n %in% samps) %>%
-    collect
-
-
-  toJSON(values, pretty = TRUE)
+      return(response)
+    },
+    error = function(err) {
+      response$statusCode <- 400
+      response$message <- paste(err)
+      return(response)
+    }
+  )
+  return(response)
 }
 
-f(10)
 

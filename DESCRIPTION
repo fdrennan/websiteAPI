@@ -13,9 +13,11 @@ Depends:
   RPostgreSQL,
   tidyverse,
   dbplyr,
-  jsonlite
+  jsonlite,
+  tictoc
 Imports:
   RPostgreSQL,
   tidyverse,
   dbplyr,
-  jsonlite
+  jsonlite,
+  tictoc
