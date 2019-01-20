@@ -49,7 +49,7 @@ get_samps <- function(samps = 100) {
 
   dbDisconnect(con)
 
-  toJSON(values, pretty = TRUE)
+  return(toJSON(values, pretty = TRUE))
 
 }
 
