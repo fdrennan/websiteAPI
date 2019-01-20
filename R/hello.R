@@ -18,9 +18,9 @@ hello <- function() {
 }
 
 update_docker <- function() {
-  file.copy(file_path, file_dest)
   file_path <- paste0(getwd(), "/R/plumber.R")
   file_dest <- paste0(getwd(), "/misc/plumber.R")
+  file.copy(file_path, file_dest, overwrite = TRUE)
 }
 
 # docker build -t dockerfile .

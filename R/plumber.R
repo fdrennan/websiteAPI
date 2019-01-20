@@ -75,5 +75,4 @@ function(samps = 100) {
   toJSON(values, pretty = TRUE)
 }
 
-f(10)
 
